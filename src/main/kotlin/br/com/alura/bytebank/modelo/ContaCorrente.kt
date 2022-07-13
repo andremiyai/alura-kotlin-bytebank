@@ -1,4 +1,6 @@
-class ContaCorrente(titular: String,
+package br.com.alura.bytebank.modelo
+
+class ContaCorrente(titular: Cliente,
                     numero: Int):
 Conta( titular = titular, numero = numero), Transferivel {
 
