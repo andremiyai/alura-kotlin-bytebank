@@ -1,56 +1,52 @@
+import br.com.alura.bytebank.modelo.Cliente
+import br.com.alura.bytebank.modelo.ContaPoupanca
 import br.com.alura.bytebank.modelo.Endereco
+import br.com.alura.bytebank.teste.testaHOF
 
 fun main() {
-    println("início main")
+
+    testaHOF()
 
 
-    //funcao1()
+}
 
-    val enderecoNulo: Endereco? = null
+fun testaRun() {
+    val taxaAnual = 0.05
+    val taxaMensal = taxaAnual / 12
+    println("taxa mensal $taxaMensal")
 
-    println(enderecoNulo?.logradouro?.length)
+    val contaPoupanca = ContaPoupanca(Cliente(nome = "Alex", cpf = "111.111.111-11", senha = 1234), 1000)
+    contaPoupanca.run {
+        deposita(1000.0)
 
-    enderecoNulo?.let {
-        println(it.logradouro.length)
+        saldo * taxaMensal
+    }.let { rendimentoMensal ->
+        println(rendimentoMensal)
     }
 
-
-    enderecoNulo?.let{
-        if(it?.complemento?.length == null){
-            "abc"
-            throw Exception("valor nulo")
+    val rendimentoAnual = run {
+        var saldo = contaPoupanca.saldo
+        repeat(12) {
+            saldo += saldo * taxaMensal
         }
+        saldo
     }
 
-    teste("")
-    teste(1)
-
-    println("fim main")
+    println("Simulação rendimento anual: $rendimentoAnual")
 }
 
-fun teste(valor: Any){
-    val numerio: Int? = valor as? Int
-}
-
-
-fun funcao1(){
-    println("início funcao1")
-    try {
-        funcao2()
-    }catch (e: ClassCastException){
-        println("Deu ERRO: $e")
+fun testaWith(){
+    with(Endereco()){
+        logradouro = "Rua Vergueiro"
+        numero = 3185
+        bairro = "Vila Mariana"
+        cidade = "São Paulo"
+        estado = "SP"
+        cep = "02310-063"
+        complemento = "Apertamento"
+        completo()
+    }.let { enderecoCompleto: String ->
+        println(enderecoCompleto)
     }
-
-    println("fim funcao1")
-}
-
-fun funcao2() {
-    println("início funcao2")
-    for (i in 1..5){
-        println(i)
-        val endereco = Any()
-        endereco as Endereco
-    }
-    println("fim funcao2")
 }
 

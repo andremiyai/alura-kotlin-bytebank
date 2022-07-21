@@ -8,4 +8,12 @@ class Endereco (
     var estado : String = "",
     var cep : String = "",
     var complemento: String = ""){
+    fun completo() : String{
+
+        return """
+            $logradouro - $numero, $bairro, $cidade - $estado
+            $cep
+            $complemento
+            """.trimIndent();
+    }
 }
